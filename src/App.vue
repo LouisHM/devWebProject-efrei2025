@@ -8,11 +8,15 @@
           <button @click="toggleDark" class="px-3 py-1 border rounded">
             {{ darkMode ? '☀️' : '🌙' }}
           </button>
-          <button @click="logout" class="px-3 py-1 border rounded">
+          <button
+            v-if="user"
+            @click="logout"
+            class="px-3 py-1 border rounded"
+          >
             Déconnexion
           </button>
-
         </div>
+
       </header>
 
       <main class="p-4">
@@ -56,5 +60,6 @@
   function toggleDark() {
     darkMode.value = !darkMode.value
   }
+  console.log(user)
 </script>
 
