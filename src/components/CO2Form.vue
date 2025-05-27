@@ -1,89 +1,122 @@
 <template>
-  <form @submit.prevent="calculate" class="max-w-xl mx-auto space-y-6">
-    <!-- Sélection du type d'activité -->
-    <div>
-      <label class="block font-semibold">Type d'activité :</label>
-      <select v-model="activity" class="w-full p-2 border rounded">
-        <option value="cloud">Cloud (instance AWS)</option>
-        <option value="flight">Vol (ville → ville)</option>
-        <option value="custom">Électricité (résiduelle)</option>
-      </select>
-    </div>
+  <div class="max-w-2xl mx-auto p-6">
+    <form
+      @submit.prevent="calculate"
+      class="space-y-6 bg-white dark:bg-noir text-noir dark:text-ivoire rounded-lg shadow-lg p-6"
+    >
+      <!-- Sélection du type d'activité -->
+      <div>
+        <label class="block font-semibold">Type d'activité :</label>
+        <select v-model="activity" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire">
+          <option value="cloud">Cloud (instance AWS)</option>
+          <option value="flight">Vol (ville → ville)</option>
+          <option value="custom">Électricité (résiduelle)</option>
+        </select>
+      </div>
 
-    <!-- Formulaire pour Cloud -->
-    <div v-if="activity === 'cloud'">
-      <label class="block font-semibold">Durée (h) :</label>
-      <input v-model.number="value" type="number" min="0" required class="w-full p-2 border rounded mb-2" />
+      <!-- Formulaire pour Cloud -->
+      <div v-if="activity === 'cloud'">
+        <label class="block font-semibold">Durée (h) :</label>
+        <input
+          v-model.number="value"
+          type="number"
+          min="0"
+          required
+          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire mb-2"
+        />
 
-      <label class="block font-semibold">Région cloud :</label>
-      <select v-model="region" class="w-full p-2 border rounded">
-        <option value="us_west_2">US West (Oregon)</option>
-        <option value="eu_west_1">EU West (Ireland)</option>
-        <option value="ap_southeast_1">Asia Pacific (Singapore)</option>
-        <option value="us_east_1">US East (N. Virginia)</option>
-      </select>
-    </div>
+        <label class="block font-semibold">Région cloud :</label>
+        <select v-model="region" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire">
+          <option value="us_west_2">US West (Oregon)</option>
+          <option value="eu_west_1">EU West (Ireland)</option>
+          <option value="ap_southeast_1">Asia Pacific (Singapore)</option>
+          <option value="us_east_1">US East (N. Virginia)</option>
+        </select>
+      </div>
 
-    <!-- Formulaire pour Électricité -->
-    <div v-if="activity === 'custom'">
-      <label class="block font-semibold">Quantité :</label>
-      <input v-model.number="value" type="number" min="0" required class="w-full p-2 border rounded" />
-      <p class="text-sm text-gray-500 mt-1">En kWh (kilowatt-heure)</p>
-    </div>
+      <!-- Formulaire pour Électricité -->
+      <div v-if="activity === 'custom'">
+        <label class="block font-semibold">Quantité :</label>
+        <input
+          v-model.number="value"
+          type="number"
+          min="0"
+          required
+          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire"
+        />
+        <p class="text-sm text-gray-500 mt-1">En kWh (kilowatt-heure)</p>
+      </div>
 
-    <!-- Formulaire pour Vol -->
-    <div v-if="activity === 'flight'">
-      <label class="block font-semibold">Ville de départ :</label>
-      <input v-model="origin" type="text" required class="w-full p-2 border rounded mb-2" />
-
-      <label class="block font-semibold">Ville d'arrivée :</label>
-      <input v-model="destination" type="text" required class="w-full p-2 border rounded" />
-    </div>
-
-    <!-- Bouton -->
-    <button class="bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition">
-      Calculer
-    </button>
-
-    <!-- Résultat -->
-    <div v-if="result" class="mt-6 p-4 border rounded bg-white text-noir dark:bg-noir dark:text-ivoire space-y-2">
-      <h3 class="text-lg font-semibold mb-2">Résultat</h3>
-      <p v-if="result.total_co2e"><strong>💨 CO₂ total :</strong> {{ result.total_co2e.toFixed(4) }} kg</p>
-      <p v-else-if="result.co2e"><strong>💨 CO₂ émis :</strong> {{ result.co2e.toFixed(4) }} kg</p>
-
+      <!-- Formulaire pour Vol -->
       <div v-if="activity === 'flight'">
-        <p><strong>Distance parcourue :</strong> {{ result.distance_km?.toFixed(1) }} km</p>
-        <p><strong>Émissions directes :</strong> {{ result.direct_emissions?.co2e?.toFixed(2) }} kg</p>
-        <p><strong>Émissions indirectes :</strong> {{ result.indirect_emissions?.co2e?.toFixed(2) }} kg</p>
+        <label class="block font-semibold">Ville de départ :</label>
+        <input v-model="origin" type="text" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire mb-2" />
+
+        <label class="block font-semibold">Ville d'arrivée :</label>
+        <input v-model="destination" type="text" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire" />
       </div>
 
-      <div v-if="activity === 'cloud'" class="space-y-2">
-        <p><strong>💻 CPU :</strong> {{ result.cpu_estimate?.co2e?.toFixed(4) }} kg</p>
-        <p><strong>🧠 Mémoire :</strong> {{ result.memory_estimate?.co2e?.toFixed(4) }} kg</p>
-        <p><strong>🏗️ Émissions incorporées :</strong> {{ result.embodied_cpu_estimate?.co2e?.toFixed(4) }} kg</p>
-        <p><strong>⚙️ Instance :</strong> {{ result.calculation_details?.instance }} – 
-          {{ result.calculation_details?.vcpu_cores }} vCPU /
-          {{ result.calculation_details?.instance_memory }} GB RAM
-        </p>
+      <!-- Bouton -->
+      <div class="pt-4">
+        <button
+          class="bg-primary hover:bg-secondary text-white font-semibold px-4 py-2 rounded shadow transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Calculer
+        </button>
       </div>
 
-      <div v-if="activity === 'custom' && result.emission_factor">
-        <p><strong>Facteur utilisé :</strong> {{ result.emission_factor.name }}</p>
-        <p><strong>Source :</strong> {{ result.emission_factor.source }} ({{ result.emission_factor.year }})</p>
-      </div>
+      <!-- Résultat -->
+      <transition name="fade" mode="out-in">
+        <div
+          v-if="result"
+          class="mt-6 p-4 border border-gray-300 dark:border-gray-600 rounded bg-white text-noir dark:bg-noir dark:text-ivoire space-y-2 shadow-md"
+        >
+          <h3 class="text-2xl font-bold mb-4">🎯 Résultat</h3>
+
+          <p v-if="result.total_co2e">
+            <strong>💨 CO₂ total :</strong> {{ result.total_co2e.toFixed(4) }} kg
+          </p>
+          <p v-else-if="result.co2e">
+            <strong>💨 CO₂ émis :</strong> {{ result.co2e.toFixed(4) }} kg
+          </p>
+
+          <div v-if="activity === 'flight'">
+            <p><strong>Distance parcourue :</strong> {{ result.distance_km?.toFixed(1) }} km</p>
+            <p><strong>Émissions directes :</strong> {{ result.direct_emissions?.co2e?.toFixed(2) }} kg</p>
+            <p><strong>Émissions indirectes :</strong> {{ result.indirect_emissions?.co2e?.toFixed(2) }} kg</p>
+          </div>
+
+          <div v-if="activity === 'cloud'" class="space-y-2">
+            <p><strong>💻 CPU :</strong> {{ result.cpu_estimate?.co2e?.toFixed(4) }} kg</p>
+            <p><strong>🧠 Mémoire :</strong> {{ result.memory_estimate?.co2e?.toFixed(4) }} kg</p>
+            <p><strong>🏗️ Émissions incorporées :</strong> {{ result.embodied_cpu_estimate?.co2e?.toFixed(4) }} kg</p>
+            <p><strong>⚙️ Instance :</strong> {{ result.calculation_details?.instance }} – {{ result.calculation_details?.vcpu_cores }} vCPU / {{ result.calculation_details?.instance_memory }} GB RAM</p>
+          </div>
+
+          <div v-if="activity === 'custom' && result.emission_factor">
+            <p><strong>Facteur utilisé :</strong> {{ result.emission_factor.name }}</p>
+            <p><strong>Source :</strong> {{ result.emission_factor.source }} ({{ result.emission_factor.year }})</p>
+          </div>
+        </div>
+      </transition>
+    </form>
+
+    <!-- Historique -->
+    <div v-if="recentResults.length" class="mt-8">
+      <h3 class="text-xl font-bold mb-4">🕒 Derniers résultats</h3>
+      <ul class="space-y-2">
+        <li
+          v-for="entry in recentResults"
+          :key="entry.id"
+          class="border border-gray-300 dark:border-gray-600 p-3 rounded bg-white dark:bg-noir text-noir dark:text-ivoire"
+        >
+          <p><strong>Activité :</strong> {{ entry.activity_type }}</p>
+          <p><strong>CO₂ :</strong> {{ entry.co2e.toFixed(2) }} kg</p>
+          <p class="text-sm text-gray-500">⏱️ {{ new Date(entry.created_at).toLocaleString() }}</p>
+        </li>
+      </ul>
     </div>
-  </form>
-  <div v-if="recentResults.length" class="mt-8">
-  <h3 class="text-lg font-bold mb-2">🕒 Derniers résultats</h3>
-  <ul class="space-y-2">
-    <li v-for="entry in recentResults" :key="entry.id" class="border p-3 rounded bg-white dark:bg-noir">
-      <p><strong>Activité :</strong> {{ entry.activity_type }}</p>
-      <p><strong>CO₂ :</strong> {{ entry.co2e.toFixed(2) }} kg</p>
-      <p class="text-sm text-gray-500">⏱️ {{ new Date(entry.created_at).toLocaleString() }}</p>
-    </li>
-  </ul>
-</div>
-
+  </div>
 </template>
 
 <script setup lang="ts">
