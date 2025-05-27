@@ -2,12 +2,12 @@
   <div class="max-w-2xl mx-auto p-6">
     <form
       @submit.prevent="calculate"
-      class="space-y-6 bg-white dark:bg-noir text-noir dark:text-ivoire rounded-lg shadow-lg p-6"
+      class="space-y-6 bg-white dark:bg-noir text-noir dark:text-light rounded-lg shadow-lg p-6"
     >
       <!-- Sélection du type d'activité -->
       <div>
         <label class="block font-semibold">Type d'activité :</label>
-        <select v-model="activity" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire">
+        <select v-model="activity" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-light">
           <option value="cloud">Cloud (instance AWS)</option>
           <option value="flight">Vol (ville → ville)</option>
           <option value="custom">Électricité (résiduelle)</option>
@@ -22,11 +22,11 @@
           type="number"
           min="0"
           required
-          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire mb-2"
+          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-light mb-2"
         />
 
         <label class="block font-semibold">Région cloud :</label>
-        <select v-model="region" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire">
+        <select v-model="region" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-light">
           <option value="us_west_2">US West (Oregon)</option>
           <option value="eu_west_1">EU West (Ireland)</option>
           <option value="ap_southeast_1">Asia Pacific (Singapore)</option>
@@ -42,7 +42,7 @@
           type="number"
           min="0"
           required
-          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire"
+          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-light"
         />
         <p class="text-sm text-gray-500 mt-1">En kWh (kilowatt-heure)</p>
       </div>
@@ -50,10 +50,10 @@
       <!-- Formulaire pour Vol -->
       <div v-if="activity === 'flight'">
         <label class="block font-semibold">Ville de départ :</label>
-        <input v-model="origin" type="text" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire mb-2" />
+        <input v-model="origin" type="text" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-light mb-2" />
 
         <label class="block font-semibold">Ville d'arrivée :</label>
-        <input v-model="destination" type="text" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-ivoire" />
+        <input v-model="destination" type="text" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-noir text-noir dark:text-light" />
       </div>
 
       <!-- Bouton -->
@@ -69,7 +69,7 @@
       <transition name="fade" mode="out-in">
         <div
           v-if="result"
-          class="mt-6 p-4 border border-gray-300 dark:border-gray-600 rounded bg-white text-noir dark:bg-noir dark:text-ivoire space-y-2 shadow-md"
+          class="mt-6 p-4 border border-gray-300 dark:border-gray-600 rounded bg-white text-noir dark:bg-noir dark:text-light space-y-2 shadow-md"
         >
           <h3 class="text-2xl font-bold mb-4">🎯 Résultat</h3>
 
@@ -108,7 +108,7 @@
         <li
           v-for="entry in recentResults"
           :key="entry.id"
-          class="border border-gray-300 dark:border-gray-600 p-3 rounded bg-white dark:bg-noir text-noir dark:text-ivoire"
+          class="border border-gray-300 dark:border-gray-600 p-3 rounded bg-white dark:bg-noir text-noir dark:text-light"
         >
           <p><strong>Activité :</strong> {{ entry.activity_type }}</p>
           <p><strong>CO₂ :</strong> {{ entry.co2e.toFixed(2) }} kg</p>

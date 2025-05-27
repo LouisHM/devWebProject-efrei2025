@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen bg-ivoire text-noir dark:bg-noir dark:text-ivoire transition-colors duration-300">
-    <header class="p-4 flex justify-between items-center border-b border-gray-300 dark:border-gray-600 bg-ivoire dark:bg-noir">
+  <div class="min-h-screen bg-light text-noir dark:bg-noir dark:text-light transition-colors duration-300">
+    <header class="p-4 flex justify-between items-center border-b border-gray-300 dark:border-gray-600 bg-light dark:bg-noir">
       <h1 class="text-xl font-bold">🌍 CO2 Tracker</h1>
       <nav class="flex gap-4 items-center">
         <RouterLink to="/dashboard" class="hover:underline">Calcul</RouterLink>
@@ -50,13 +50,11 @@ function toggleDark() {
 }
 
 onMounted(() => {
-  // Init theme
   const saved = localStorage.getItem('theme')
   const system = window.matchMedia('(prefers-color-scheme: dark)').matches
   isDark.value = saved === 'dark' || (!saved && system)
   applyTheme(isDark.value)
 
-  // Init auth
   supabase.auth.getSession().then(({ data }) => {
     user.value = data.session?.user ?? null
     if (user.value && router.currentRoute.value.name === 'home') {
