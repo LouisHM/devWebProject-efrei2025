@@ -3,13 +3,13 @@
       <h2 class="text-xl font-semibold">Connexion</h2>
       <button
         @click="signInWithProvider('google')"
-        class="px-4 py-2 bg-white text-noir border border-noir rounded hover:bg-primary hover:text-white transition"
+        class="px-4 py-2 text-light border rounded bg-secondary hover:bg-primary hover:text-white transition"
       >
         Se connecter avec Google
       </button>
       <button
         @click="signInWithProvider('azure')"
-        class="px-4 py-2 bg-white text-noir border border-noir rounded hover:bg-secondary hover:text-white transition"
+        class="px-4 py-2 bg-white text-noir rounded hover:bg-primary hover:text-white transition"
       >
         Se connecter avec Microsoft
       </button>

@@ -4,19 +4,19 @@
     <nav class="flex space-x-2">
       <RouterLink
         to="/dashboard"
-        class="px-4 py-2 rounded-full text-sm font-medium transition"
+        class="px-4 py-2 rounded-full text-sm font-medium transition "
         :class="isActive('/dashboard')
-          ? 'bg-primary text-white'
-          : 'text-noir dark:text-light hover:bg-primary-light dark:hover:bg-secondary-light'"
+          ? 'bg-secondary hover:bg-primary text-white'
+          : 'text-noir dark:text-light hover:bg-primary dark:hover:bg-secondary-light'"
       >
         Calcul
       </RouterLink>
       <RouterLink
         to="/historique"
-        class="px-4 py-2 rounded-full text-sm font-medium transition"
+        class="px-4 py-2 rounded-full text-sm font-medium transition "
         :class="isActive('/historique')
-          ? 'bg-primary text-white'
-          : 'text-noir dark:text-light hover:bg-primary-light dark:hover:bg-secondary-light'"
+          ? 'bg-secondary hover:bg-primary text-white'
+          : 'text-noir dark:text-light hover:bg-primary dark:hover:bg-secondary-light'"
       >
         Historique
       </RouterLink>
@@ -24,34 +24,36 @@
         to="/stats"
         class="px-4 py-2 rounded-full text-sm font-medium transition"
         :class="isActive('/stats')
-          ? 'bg-primary text-white'
-          : 'text-noir dark:text-light hover:bg-primary-light dark:hover:bg-secondary-light'"
+          ? 'bg-secondary hover:bg-primary text-white'
+          : 'text-noir dark:text-light hover:bg-primary dark:hover:bg-secondary-light'"
       >
         Graphiques
       </RouterLink>
     </nav>
 
     <!-- User email -->
-    <span v-if="user" class="text-sm opacity-80">{{ user.email }}</span>
 
-    <!-- Theme toggle -->
-    <button
-      @click="toggleDark"
-      class="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-      aria-label="Toggle theme"
-    >
-      <span v-if="isDark">☀️</span>
-      <span v-else>🌙</span>
-    </button>
 
     <!-- Logout -->
     <button
       v-if="user"
       @click="logout"
-      class="px-3 py-1 rounded-md bg-secondary text-white text-sm font-medium hover:bg-secondary-dark transition"
+      class="px-3 py-1 flex flex-row gap-1 rounded-md bg-secondary hover:bg-primary text-white text-sm font-medium hover:bg-secondary-dark transition"
     >
-      Déconnexion
+        <span v-if="user" class="">{{ user.email }} |</span>
+        <span class="">Déconnexion</span>
+        
     </button>
+            <!-- Theme toggle -->
+    <button
+      @click="toggleDark"
+      class="flex flex-col p-2 rounded-full text-sm"
+      aria-label="Toggle theme"
+    >
+      <span v-if="isDark">Light theme ☀️</span>
+      <span v-else>Dark theme 🌙</span>
+    </button>
+    
   </div>
 </template>
 

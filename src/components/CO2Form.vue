@@ -42,7 +42,7 @@
       <!-- Bouton -->
       <div class="pt-4">
         <button
-          class="bg-primary hover:bg-secondary text-white font-semibold px-4 py-2 rounded shadow transition duration-300 ease-in-out transform hover:scale-105"
+          class="bg-secondary hover:bg-primary text-white font-semibold px-4 py-2 rounded shadow transition duration-300 ease-in-out transform hover:scale-105"
         >
           Calculer
         </button>
