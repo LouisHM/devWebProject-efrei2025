@@ -1,6 +1,7 @@
 <template>
     <div class="max-w-3xl mx-auto p-6 space-y-6">
       <h1 class="text-2xl font-bold">🕒 Historique de mes émissions</h1>
+      
       <CO2BarChart
         v-if="results.length"
         :labels="results.map(r => r.activity_type + ' - ' + new Date(r.created_at).toLocaleDateString())"
