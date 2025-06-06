@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-3xl mx-auto p-6 space-y-6">
-    <h1 class="text-2xl font-bold">🕒 Historique de mes émissions</h1>
+    <h1 class="text-2xl font-bold ">🕒 Historique de mes émissions</h1>
 
     <!-- Slider pour choisir combien d’entrées afficher dans le graphique -->
     <div v-if="!loading && results.length" class="space-y-2">
@@ -33,7 +33,7 @@
       <li
         v-for="entry in results"
         :key="entry.id"
-        class="border p-4 rounded bg-white dark:bg-noir"
+        class=" p-4 rounded bg-white dark:bg-dark"
       >
         <p><strong>Activité :</strong> {{ entry.activity_type }}</p>
         <p><strong>CO₂ :</strong> {{ entry.co2e.toFixed(2) }} kg</p>

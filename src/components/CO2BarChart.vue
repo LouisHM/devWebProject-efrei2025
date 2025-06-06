@@ -1,5 +1,7 @@
 <template>
-  <Bar :data="chartData" :options="chartOptions" />
+  <div class="max-w-4xl mx-auto p-6 rounded-xl bg-white dark:bg-dark text-dark dark:text-light">
+    <Bar :data="chartData" :options="chartOptions" />
+  </div>
 </template>
 
 <script setup lang="ts">

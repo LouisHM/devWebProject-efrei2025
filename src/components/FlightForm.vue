@@ -7,7 +7,7 @@
         @input="$emit('update:origin', $event.target.value)"
         type="text"
         required
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       />
     </div>
     <div>
@@ -17,7 +17,7 @@
         @input="$emit('update:destination', $event.target.value)"
         type="text"
         required
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       />
     </div>
   </div>

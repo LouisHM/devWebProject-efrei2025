@@ -16,11 +16,38 @@ theme: {
       secondary: '#648e18',
       textlight: '#1e1e1e',
       textdark: '#f5f5f5',
+      
+        flight: "#3b82f6",      // bleu
+        cloud: "#10b981",       // vert
+        custom: "#f59e0b",      // jaune
+        total: "#8b5cf6",       // violet
+
+        "flight-light": "#93c5fd",
+        "cloud-light": "#6ee7b7",
+        "custom-light": "#fde68a",
+        "total-light": "#d8b4fe",
+
     },
       boxShadow: {
         secondary: '5px 5px 25px 5px rgba(0,0,0, 0.32)', // couleur #5fc163
       },
   },
 },
-  plugins: [],
+  plugins: [
+    function ({ addBase, theme }) {
+      addBase({
+        ":root": {
+          "--color-flight": theme("colors.flight"),
+          "--color-cloud": theme("colors.cloud"),
+          "--color-custom": theme("colors.custom"),
+          "--color-total": theme("colors.total"),
+
+          "--color-flight-light": theme("colors.flight-light"),
+          "--color-cloud-light": theme("colors.cloud-light"),
+          "--color-custom-light": theme("colors.custom-light"),
+          "--color-total-light": theme("colors.total-light"),
+        },
+      });
+    },
+  ],
 }

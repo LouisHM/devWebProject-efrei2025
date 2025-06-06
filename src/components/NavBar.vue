@@ -27,7 +27,7 @@
           ? 'bg-secondary hover:bg-primary text-white'
           : 'text-noir dark:text-light hover:bg-primary dark:hover:bg-secondary-light'"
       >
-        Graphiques
+        Statistiques
       </RouterLink>
     </nav>
 

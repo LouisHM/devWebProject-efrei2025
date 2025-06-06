@@ -5,7 +5,7 @@
       <li
         v-for="entry in results"
         :key="entry.id"
-        class="border border-gray-300 dark:border-gray-600 p-3 rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class=" p-3 rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <p><strong>Activité :</strong> {{ entry.activity_type }}</p>
         <p><strong>CO₂ :</strong> {{ entry.co2e.toFixed(2) }} kg</p>

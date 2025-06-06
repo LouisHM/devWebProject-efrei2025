@@ -9,7 +9,7 @@
         type="number"
         min="1"
         required
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       />
     </div>
 
@@ -22,7 +22,7 @@
         type="number"
         min="0"
         required
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       />
     </div>
 
@@ -32,7 +32,7 @@
       <select
         :value="instance"
         @change="$emit('update:instance', $event.target.value)"
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <option
           v-for="opt in AVAILABLE_INSTANCES"
@@ -50,7 +50,7 @@
       <select
         :value="region"
         @change="$emit('update:region', $event.target.value)"
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <option
           v-for="opt in AVAILABLE_REGIONS"
@@ -68,7 +68,7 @@
       <select
         :value="storageType"
         @change="$emit('update:storageType', $event.target.value)"
-        class="w-full p-2 border rounded bg-white dark:bg-dark text-textlight dark:text-textdark"
+        class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <option
           v-for="opt in AVAILABLE_STORAGE_TYPES"

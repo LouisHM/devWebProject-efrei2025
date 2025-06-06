@@ -36,7 +36,7 @@
     </div>
 
     <!-- Électricité -->
-    <div v-if="activity === 'custom' && result.emission_factor">
+    <div v-if="activity === 'electricity' && result.emission_factor">
       <p><strong>🔌 Électricité :</strong> {{ result.co2e.toFixed(4) }} kg</p>
       <p>
         <strong>Facteur :</strong> {{ result.emission_factor.name }}
@@ -49,6 +49,6 @@
 <script setup lang="ts">
 defineProps<{
   result: any
-  activity: 'cloud' | 'flight' | 'custom'
+  activity: 'cloud' | 'flight' | 'electricity'
 }>()
 </script>

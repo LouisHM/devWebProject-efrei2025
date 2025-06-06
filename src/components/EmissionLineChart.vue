@@ -65,7 +65,7 @@ const chartOptions = {
     legend: { display: false },
     title: {
       display: true,
-      text: "Tendance des émissions CO₂",
+      text: "Tendance de mes émissions CO₂ sur le temps",
     },
   },
   scales: {

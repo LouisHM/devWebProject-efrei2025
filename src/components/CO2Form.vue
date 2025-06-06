@@ -2,7 +2,7 @@
   <div class="max-w-2xl mx-auto p-6">
     <form
       @submit.prevent="calculate"
-      class="space-y-6 bg-white dark:bg-dark text-dark dark:text-light rounded-lg p-6 dark:shadow-secondary"
+      class="space-y-6 bg-white dark:bg-dark text-dark dark:text-light rounded-lg p-6 "
     >       <!-- Sélection du type d'activité -->
       <div>
         <label class="block font-semibold">Type d'activité :</label>
@@ -12,7 +12,7 @@
         >
           <option value="cloud">Cloud (instance AWS)</option>
           <option value="flight">Vol (ville → ville)</option>
-          <option value="custom">Électricité (résiduelle)</option>
+          <option value="electricity">Électricité (résiduelle)</option>
         </select>
       </div>
 
@@ -33,7 +33,7 @@
       />
 
       <ElectricityForm
-        v-if="activity === 'custom'"
+        v-if="activity === 'electricity'"
         v-model="value"
       />
 
@@ -81,7 +81,7 @@ import {
 } from '@/lib/cloud'
 import { supabase } from '@/lib/supabase'
 
-const activity = ref<'cloud'|'flight'|'custom'>('cloud')
+const activity = ref<'cloud'|'flight'|'electricity'>('cloud')
 
 // Cloud params
 const duration = ref(24)
@@ -94,7 +94,7 @@ const storageType = ref<'ssd'|'hdd'>('ssd')
 const origin = ref('Paris')
 const destination = ref('Berlin')
 
-// Custom electricity
+// electricity electricity
 const value = ref(100)
 
 const result = ref<any>(null)
