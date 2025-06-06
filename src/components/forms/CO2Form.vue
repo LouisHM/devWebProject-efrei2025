@@ -67,8 +67,8 @@ import { ref, watch, onMounted } from 'vue'
 import CloudForm from './CloudForm.vue'
 import FlightForm from './FlightForm.vue'
 import ElectricityForm from './ElectricityForm.vue'
-import CO2Result from './CO2Result.vue'
-import RecentResults from './RecentResults.vue'
+import CO2Result from '../CO2Result.vue'
+import RecentResults from '../RecentResults.vue'
 
 import {
   AVAILABLE_REGIONS,

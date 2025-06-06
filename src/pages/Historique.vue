@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { supabase } from '@/lib/supabase'
-import CO2BarChart from '@/components/CO2BarChart.vue'
+import CO2BarChart from '@/components/charts/CO2BarChart.vue'
 
 // état
 const results = ref<any[]>([])

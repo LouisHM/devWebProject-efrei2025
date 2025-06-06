@@ -6,5 +6,5 @@
 </template>
 
 <script setup lang="ts">
-import CO2Form from '@/components/CO2Form.vue'
+import CO2Form from '@/components/forms/CO2Form.vue'
 </script>

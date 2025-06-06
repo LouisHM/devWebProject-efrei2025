@@ -38,9 +38,9 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
 import { supabase } from "@/lib/supabase";
-import EmissionPieChart from "@/components/EmissionPieChart.vue";
-import EmissionLineChart from "@/components/EmissionLineChart.vue";
-import AverageComparisonChart from "@/components/AverageComparisonChart.vue";
+import EmissionPieChart from "@/components/charts/EmissionPieChart.vue";
+import EmissionLineChart from "@/components/charts/EmissionLineChart.vue";
+import AverageComparisonChart from "@/components/charts/AverageComparisonChart.vue";
 
 interface Co2Result {
   activity_type: "flight" | "cloud" | "electricity";
