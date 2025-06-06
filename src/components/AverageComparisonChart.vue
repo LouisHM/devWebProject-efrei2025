@@ -47,7 +47,7 @@
       <label class="relative inline-flex items-center cursor-pointer select-none">
         <input
           type="checkbox"
-          v-model="showCategories.custom"
+          v-model="showCategories.electricity"
           class="absolute opacity-0 w-0 h-0 peer"
         />
         <span
@@ -110,50 +110,50 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 const props = defineProps<{
   flightTotal: number;
   cloudTotal: number;
-  customTotal: number;
+  electricityTotal: number;
 }>();
 
 // Moyennes France codées en dur (kg CO₂)
 const FRANCE_AVERAGE = {
   flight: 1500,
   cloud: 800,
-  custom: 2500,
+  electricity: 2500,
 };
 
 // Totaux utilisateur calculés
 const userTotals = computed(() => ({
   flight: props.flightTotal,
   cloud: props.cloudTotal,
-  custom: props.customTotal,
-  total: props.flightTotal + props.cloudTotal + props.customTotal,
+  electricity: props.electricityTotal,
+  total: props.flightTotal + props.cloudTotal + props.electricityTotal,
 }));
 
 // Moyennes France calculées
 const franceTotals = computed(() => ({
   flight: FRANCE_AVERAGE.flight,
   cloud: FRANCE_AVERAGE.cloud,
-  custom: FRANCE_AVERAGE.custom,
+  electricity: FRANCE_AVERAGE.electricity,
   total:
-    FRANCE_AVERAGE.flight + FRANCE_AVERAGE.cloud + FRANCE_AVERAGE.custom,
+    FRANCE_AVERAGE.flight + FRANCE_AVERAGE.cloud + FRANCE_AVERAGE.electricity,
 }));
 
 // Gestion des cases cochées
 const showCategories = ref({
   flight: true,
   cloud: true,
-  custom: true,
+  electricity: true,
   total: true,
 });
 
 // Liste des catégories
-const allCategories = ["flight", "cloud", "custom", "total"] as const;
+const allCategories = ["flight", "cloud", "electricity", "total"] as const;
 type Cat = typeof allCategories[number];
 
 // Libellés pour l’axe X
 const categoryLabels: Record<Cat, string> = {
   flight: "Vols",
   cloud: "Cloud",
-  custom: "Électricité",
+  electricity: "Électricité",
   total: "Total",
 };
 
@@ -161,7 +161,7 @@ const categoryLabels: Record<Cat, string> = {
 const USER_COLORS: Record<Cat, string> = {
   flight: "#3b82f6", // bleu
   cloud: "#10b981", // vert
-  custom: "#f59e0b", // jaune
+  electricity: "#f59e0b", // jaune
   total: "#8b5cf6", // violet
 };
 
@@ -169,7 +169,7 @@ const USER_COLORS: Record<Cat, string> = {
 const AVG_COLORS: Record<Cat, string> = {
   flight: "#93c5fd", // bleu clair
   cloud: "#6ee7b7", // vert clair
-  custom: "#fde68a", // jaune clair
+  electricity: "#fde68a", // jaune clair
   total: "#d8b4fe", // violet clair
 };
 

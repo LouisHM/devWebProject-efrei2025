@@ -19,12 +19,12 @@ theme: {
       
         flight: "#3b82f6",      // bleu
         cloud: "#10b981",       // vert
-        custom: "#f59e0b",      // jaune
+        electricity: "#f59e0b",      // jaune
         total: "#8b5cf6",       // violet
 
         "flight-light": "#93c5fd",
         "cloud-light": "#6ee7b7",
-        "custom-light": "#fde68a",
+        "electricity-light": "#fde68a",
         "total-light": "#d8b4fe",
 
     },
@@ -39,12 +39,12 @@ theme: {
         ":root": {
           "--color-flight": theme("colors.flight"),
           "--color-cloud": theme("colors.cloud"),
-          "--color-custom": theme("colors.custom"),
+          "--color-electricity": theme("colors.electricity"),
           "--color-total": theme("colors.total"),
 
           "--color-flight-light": theme("colors.flight-light"),
           "--color-cloud-light": theme("colors.cloud-light"),
-          "--color-custom-light": theme("colors.custom-light"),
+          "--color-electricity-light": theme("colors.electricity-light"),
           "--color-total-light": theme("colors.total-light"),
         },
       });

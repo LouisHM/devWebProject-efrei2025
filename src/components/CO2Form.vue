@@ -2,8 +2,9 @@
   <div class="max-w-2xl mx-auto p-6">
     <form
       @submit.prevent="calculate"
-      class="space-y-6 bg-white dark:bg-dark text-dark dark:text-light rounded-lg p-6 "
-    >       <!-- Sélection du type d'activité -->
+      class="space-y-6 bg-white dark:bg-dark text-dark dark:text-light rounded-lg p-6"
+    >
+      <!-- Sélection du type d'activité -->
       <div>
         <label class="block font-semibold">Type d'activité :</label>
         <select
@@ -16,7 +17,7 @@
         </select>
       </div>
 
-      <!-- Sous-formulaires -->
+      <!-- Sous‐formulaires -->
       <CloudForm
         v-if="activity === 'cloud'"
         v-model:duration="duration"
@@ -34,7 +35,7 @@
 
       <ElectricityForm
         v-if="activity === 'electricity'"
-        v-model="value"
+        v-model="electricityParams"
       />
 
       <!-- Bouton -->
@@ -74,37 +75,37 @@ import {
   AVAILABLE_INSTANCES,
   AVAILABLE_STORAGE_TYPES,
 } from '@/lib/cloud'
-import {
-  calculateCloud,
-} from '@/lib/cloud'
-import {
-    calculateFlight,
-} from '@/lib/flight'
-import {
-  calculateElectricity,
-} from '@/lib/electricity'
+import { calculateCloud } from '@/lib/cloud'
+import { calculateFlight } from '@/lib/flight'
+import { calculateElectricity } from '@/lib/electricity'
+import type { ElectricityParams } from '@/lib/electricity'
 import { supabase } from '@/lib/supabase'
 
-const activity = ref<'cloud'|'flight'|'electricity'>('cloud')
+// --- Choix d'activité ---
+const activity = ref<'cloud' | 'flight' | 'electricity'>('cloud')
 
 // Cloud params
 const duration = ref(24)
 const instance = ref('t2.nano')
 const region = ref('us_west_2')
 const storage = ref(10)
-const storageType = ref<'ssd'|'hdd'>('ssd')
+const storageType = ref<'ssd' | 'hdd'>('ssd')
 
 // Flight params
 const origin = ref('Paris')
 const destination = ref('Berlin')
 
-// electricity electricity
-const value = ref(100)
+// Electricity params : on commence par une valeur par défaut minimale
+const electricityParams = ref<ElectricityParams>({
+  region: '',        // laissé vide tant que l'utilisateur n'a pas choisi
+  amount: 0,         // quant. en kWh
+  // year?, recs?, source_set?, allow_iea_provisional? = non définis au départ
+})
 
 const result = ref<any>(null)
 const recentResults = ref<any[]>([])
 
-// Efface le résultat si on change d’activité
+// Efface le résultat quand on change d’activité
 watch(activity, () => {
   result.value = null
 })
@@ -123,7 +124,23 @@ const fetchRecent = async () => {
 }
 onMounted(fetchRecent)
 
-const extractCO2 = (d: any) => d?.total_co2e ?? d?.co2e ?? 0
+// --- extractCO2 corrigé pour tenir compte de l’endpoint « electricity » ---
+const extractCO2 = (d: any): number => {
+  // Cloud et Flight
+  if (d?.total_co2e) return d.total_co2e
+  if (d?.co2e) return d.co2e
+
+  // Electricity (location-based)
+  if (d?.location?.consumption?.co2e) {
+    return d.location.consumption.co2e
+  }
+  // Electricity (market-based)
+  if (d?.market?.consumption?.co2e) {
+    return d.market.consumption.co2e
+  }
+
+  return 0
+}
 
 const calculate = async () => {
   result.value = null
@@ -139,22 +156,39 @@ const calculate = async () => {
     } else if (activity.value === 'flight') {
       result.value = await calculateFlight(origin.value, destination.value)
     } else {
-      result.value = await calculateElectricity(value.value)
+      // On envoie l’objet complet electricityParams.value
+      result.value = await calculateElectricity(electricityParams.value)
     }
 
-    // Sauvegarde et refresh historique
+    // --- Debug et insertion Supabase ---
     const { data: { user } } = await supabase.auth.getUser()
-    await supabase
-      .from('co2_results')
-      .insert({
-        user_id: user?.id,
-        activity_type: activity.value,
-        co2e: extractCO2(result.value),
-        raw_result: result.value,
-      })
+    if (!user) {
+      console.warn("Impossible d'enregistrer : pas d’utilisateur connecté.")
+    } else {
+      const co2Value = extractCO2(result.value)
+      console.log("🟢 Avant INSERT – user_id =", user.id, "co2e =", co2Value)
+
+      const { data: insertData, error: insertError } = await supabase
+        .from('co2_results')
+        .insert({
+          user_id: user.id,
+          activity_type: activity.value,
+          co2e: co2Value,
+          raw_result: result.value,
+        })
+
+      if (insertError) {
+        console.error("❌ Erreur lors de l'insertion Supabase :", insertError)
+      } else {
+        console.log("✅ Insertion réussie – retour Supabase :", insertData)
+      }
+    }
+    // --------------------------------------
+
     await fetchRecent()
   } catch (e) {
     alert((e as Error).message)
   }
 }
+
 </script>

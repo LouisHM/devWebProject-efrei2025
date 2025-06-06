@@ -1,54 +1,102 @@
+<!-- src/components/CO2Result.vue -->
 <template>
-  <div
-    class="mt-6 p-4 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-dark text-textlight dark:text-textdark space-y-4 shadow-md"
-  >
-    <h3 class="text-2xl font-bold mb-2">🎯 Résultat</h3>
+  <div class="mt-6 p-4 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-dark text-dark dark:text-light space-y-2 shadow-md">
+    <h3 class="text-2xl font-bold mb-4">🎯 Résultat</h3>
 
-    <!-- Total CO₂ -->
-    <p v-if="result.total_co2e">
-      <strong>💨 CO₂ total :</strong> {{ result.total_co2e.toFixed(4) }} kg
-    </p>
-    <p v-else-if="result.co2e">
-      <strong>💨 CO₂ émis :</strong> {{ result.co2e.toFixed(4) }} kg
-    </p>
-
-    <!-- Vol -->
-    <div v-if="activity === 'flight'">
-      <p><strong>✈️ Distance :</strong> {{ result.distance_km?.toFixed(1) }} km</p>
-      <p><strong>🔹 Direct :</strong> {{ result.direct_emissions?.co2e?.toFixed(2) }} kg</p>
-      <p><strong>🔸 Indirect :</strong> {{ result.indirect_emissions?.co2e?.toFixed(2) }} kg</p>
-    </div>
-
-    <!-- Cloud -->
-    <div v-if="activity === 'cloud'" class="space-y-2">
+    <!-- Cloud et Flight restent inchangés -->
+    <div v-if="activity === 'cloud'">
       <p><strong>💻 CPU :</strong> {{ result.cpu_estimate?.co2e?.toFixed(4) }} kg</p>
       <p><strong>🧠 Mémoire :</strong> {{ result.memory_estimate?.co2e?.toFixed(4) }} kg</p>
-      <p><strong>🏗️ Embodied :</strong> {{ result.embodied_cpu_estimate?.co2e?.toFixed(4) }} kg</p>
-      <p v-if="result.storage_estimate">
-        <strong>💾 Stockage :</strong> {{ result.storage_estimate.co2e.toFixed(4) }} kg
-      </p>
-      <p class="text-sm">
+      <p><strong>🏗️ Émissions incorporées :</strong> {{ result.embodied_cpu_estimate?.co2e?.toFixed(4) }} kg</p>
+      <p>
         <strong>⚙️ Instance :</strong>
-        {{ result.calculation_details?.instance }} –
-        {{ result.calculation_details?.vcpu_cores }} vCPU /
+        {{ result.calculation_details?.instance }}
+        – {{ result.calculation_details?.vcpu_cores }} vCPU /
         {{ result.calculation_details?.instance_memory }} GB RAM
       </p>
     </div>
 
-    <!-- Électricité -->
-    <div v-if="activity === 'electricity' && result.emission_factor">
-      <p><strong>🔌 Électricité :</strong> {{ result.co2e.toFixed(4) }} kg</p>
-      <p>
-        <strong>Facteur :</strong> {{ result.emission_factor.name }}
-        ({{ result.emission_factor.year }})
-      </p>
+    <div v-else-if="activity === 'flight'">
+      <p><strong>Distance parcourue :</strong> {{ result.distance_km?.toFixed(1) }} km</p>
+      <p><strong>Émissions directes :</strong> {{ result.direct_emissions?.co2e?.toFixed(2) }} kg</p>
+      <p><strong>Émissions indirectes :</strong> {{ result.indirect_emissions?.co2e?.toFixed(2) }} kg</p>
     </div>
+
+    <!-- ELECTRICITY: nouvelle branche dédiée -->
+    <div v-else-if="activity === 'electricity'" class="space-y-3">
+      <!-- On affiche en priorité l’approche “location” (scope 2) -->
+      <div>
+        <h4 class="font-semibold">📍 Approche “Location” (consommation locale)</h4>
+        <p>
+          <strong>Consommation (kg CO₂e) :</strong>
+          {{ result.location.consumption.co2e.toFixed(2) }} kg
+        </p>
+        <p>
+          <strong>Transmission & Distribution (kg CO₂e) :</strong>
+          {{ result.location.transmission_and_distribution.co2e.toFixed(2) }} kg
+        </p>
+        <p>
+          <strong>Fourniture en amont (well-to-tank, kg CO₂e) :</strong>
+          {{ result.location.well_to_tank.co2e.toFixed(2) }} kg
+        </p>
+        <p>
+          <strong>WTT T&D (kg CO₂e) :</strong>
+          {{ result.location.well_to_tank_of_transmission_and_distribution.co2e.toFixed(2) }} kg
+        </p>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Méthode de calcul : {{ result.location.consumption.co2e_calculation_method }}
+        </p>
+      </div>
+
+      <!-- Affichage “market” (approche achat) -->
+      <div>
+        <h4 class="font-semibold">🛒 Approche “Market” (achats)</h4>
+        <p>
+          <strong>Consommation achetée (kg CO₂e) :</strong>
+          {{ result.market.consumption.co2e.toFixed(2) }} kg
+        </p>
+        <p>
+          <strong>Transmission & Distribution (kg CO₂e) :</strong>
+          {{ result.market.transmission_and_distribution.co2e.toFixed(2) }} kg
+        </p>
+        <p>
+          <strong>Fourniture en amont (well-to-tank, kg CO₂e) :</strong>
+          {{ result.market.well_to_tank.co2e.toFixed(2) }} kg
+        </p>
+        <p>
+          <strong>WTT T&D (kg CO₂e) :</strong>
+          {{ result.market.well_to_tank_of_transmission_and_distribution.co2e.toFixed(2) }} kg
+        </p>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Méthode de calcul : {{ result.market.consumption.co2e_calculation_method }}
+        </p>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { defineProps } from 'vue'
+
+/**
+ * Props :
+ * - result: réponse brute de l’API (cloud, flight ou electricity).
+ * - activity: 'cloud' | 'flight' | 'electricity' => pour choisir l’affichage adéquat.
+ */
+const props = defineProps<{
   result: any
   activity: 'cloud' | 'flight' | 'electricity'
 }>()
 </script>
+
+<style scoped>
+/* Juste pour aérer un peu les titres */
+h4 {
+  margin-bottom: 0.25rem;
+  color: #374151; /* gris foncé */
+}
+.dark h4 {
+  color: #d1d5db; /* gris clair en dark */
+}
+</style>

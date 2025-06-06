@@ -29,7 +29,7 @@
       <AverageComparisonChart
         :flight-total="flightTotal"
         :cloud-total="cloudTotal"
-        :custom-total="customTotal"
+        :electricity-total="electricityTotal"
       />
     </div>
   </div>
@@ -43,7 +43,7 @@ import EmissionLineChart from "@/components/EmissionLineChart.vue";
 import AverageComparisonChart from "@/components/AverageComparisonChart.vue";
 
 interface Co2Result {
-  activity_type: "flight" | "cloud" | "custom";
+  activity_type: "flight" | "cloud" | "electricity";
   co2e: number;
   created_at: string;
 }
@@ -75,13 +75,13 @@ const sumByType = (type: Co2Result["activity_type"]) =>
 
 const flightTotal = computed(() => sumByType("flight"));
 const cloudTotal = computed(() => sumByType("cloud"));
-const customTotal = computed(() => sumByType("custom"));
+const electricityTotal = computed(() => sumByType("electricity"));
 
 const pieLabels = ["Vols", "Cloud", "Électricité"];
 const pieValues = computed(() => [
   flightTotal.value,
   cloudTotal.value,
-  customTotal.value,
+  electricityTotal.value,
 ]);
 const hasData = computed(() =>
   pieValues.value.reduce((acc, v) => acc + v, 0) > 0
