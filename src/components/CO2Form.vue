@@ -76,9 +76,13 @@ import {
 } from '@/lib/cloud'
 import {
   calculateCloud,
-  calculateFlight,
-  calculateElectricity,
 } from '@/lib/cloud'
+import {
+    calculateFlight,
+} from '@/lib/flight'
+import {
+  calculateElectricity,
+} from '@/lib/electricity'
 import { supabase } from '@/lib/supabase'
 
 const activity = ref<'cloud'|'flight'|'electricity'>('cloud')
