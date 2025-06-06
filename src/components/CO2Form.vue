@@ -2,10 +2,8 @@
   <div class="max-w-2xl mx-auto p-6">
     <form
       @submit.prevent="calculate"
-      class="space-y-6 bg-white dark:bg-dark text-dark dark:text-light rounded-lg shadow-lg p-6 dark:shadow-secondary"
-    > 
-      <h2 class="text-2xl font-bold mb-4">Calculateur d'empreinte CO₂</h2>
-      <!-- Sélection du type d'activité -->
+      class="space-y-6 bg-white dark:bg-dark text-dark dark:text-light rounded-lg p-6 dark:shadow-secondary"
+    >       <!-- Sélection du type d'activité -->
       <div>
         <label class="block font-semibold">Type d'activité :</label>
         <select

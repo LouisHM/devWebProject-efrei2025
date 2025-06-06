@@ -18,7 +18,7 @@ theme: {
       textdark: '#f5f5f5',
     },
       boxShadow: {
-        secondary: '5px 5px 25px 5px rgba(255,255,255,0.32)', // couleur #5fc163
+        secondary: '5px 5px 25px 5px rgba(0,0,0, 0.32)', // couleur #5fc163
       },
   },
 },

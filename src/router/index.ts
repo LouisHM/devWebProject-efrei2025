@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/Home.vue'
 import Dashboard from '@/pages/Dashboard.vue'
 import Historique from '@/pages/Historique.vue'
+import StatsView from '@/pages/StatsView.vue'
 import { supabase } from '@/lib/supabase'
 
 
@@ -15,6 +16,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   { path: '/historique', component: Historique },
+  { path: '/stats', component: StatsView },
 ]
 
 export const router = createRouter({

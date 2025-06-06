@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2 class="text-2xl font-bold mb-4">Calculateur CO₂</h2>
+  <div class="flex flex-col items-center p-6 min-h-screen">
+    <h2 class="text-2xl font-bold mb-4 ">Calculateur CO₂</h2>
     <CO2Form />
   </div>
 </template>
