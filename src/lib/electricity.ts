@@ -1,4 +1,3 @@
-// src/lib/electricity.ts
 
 export interface ElectricityParams {
   region: string;
@@ -31,7 +30,6 @@ export async function calculateElectricity(params: ElectricityParams) {
     body.allow_iea_provisional = true;
   }
 
-  // Affiche le JSON que l’on envoie
   console.log('🟢 calculateElectricity – request body →', JSON.stringify(body, null, 2));
 
   const response = await fetch('https://api.climatiq.io/energy/v1/electricity', {
@@ -44,7 +42,6 @@ export async function calculateElectricity(params: ElectricityParams) {
   });
 
   if (!response.ok) {
-    // Tente de récupérer le JSON d’erreur pour l’afficher aussi
     let errJson = null;
     try {
       errJson = await response.json();
@@ -64,12 +61,10 @@ export async function calculateElectricity(params: ElectricityParams) {
 
 
 
-// src/lib/cloud.ts
 export const AVAILABLE_REGIONS = [
   { label: 'France', value: 'FR' },
   { label: 'Royaume-Uni', value: 'GB' },
   { label: 'États-Unis (CA)', value: 'US-CA' },
-  /* … autres régions … */
 ];
 
 export const AVAILABLE_SOURCE_SETS = [

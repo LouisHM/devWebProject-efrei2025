@@ -14,5 +14,4 @@ import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import NavBar from '@/components/NavBar.vue'
 
-// … le reste de ton setup (theme, auth, etc.)
 </script>

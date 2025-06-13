@@ -104,7 +104,6 @@ import {
   LinearScale,
 } from "chart.js";
 
-// Enregistrement des plugins nécessaires pour <Bar>
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const props = defineProps<{
@@ -113,14 +112,12 @@ const props = defineProps<{
   electricityTotal: number;
 }>();
 
-// Moyennes France codées en dur (kg CO₂)
 const FRANCE_AVERAGE = {
   flight: 1500,
   cloud: 800,
   electricity: 2500,
 };
 
-// Totaux utilisateur calculés
 const userTotals = computed(() => ({
   flight: props.flightTotal,
   cloud: props.cloudTotal,
@@ -128,7 +125,6 @@ const userTotals = computed(() => ({
   total: props.flightTotal + props.cloudTotal + props.electricityTotal,
 }));
 
-// Moyennes France calculées
 const franceTotals = computed(() => ({
   flight: FRANCE_AVERAGE.flight,
   cloud: FRANCE_AVERAGE.cloud,
@@ -137,7 +133,6 @@ const franceTotals = computed(() => ({
     FRANCE_AVERAGE.flight + FRANCE_AVERAGE.cloud + FRANCE_AVERAGE.electricity,
 }));
 
-// Gestion des cases cochées
 const showCategories = ref({
   flight: true,
   cloud: true,
@@ -145,11 +140,9 @@ const showCategories = ref({
   total: true,
 });
 
-// Liste des catégories
 const allCategories = ["flight", "cloud", "electricity", "total"] as const;
 type Cat = typeof allCategories[number];
 
-// Libellés pour l’axe X
 const categoryLabels: Record<Cat, string> = {
   flight: "Vols",
   cloud: "Cloud",
@@ -157,40 +150,33 @@ const categoryLabels: Record<Cat, string> = {
   total: "Total",
 };
 
-// Couleurs « Utilisateur » codées en dur (hex)
 const USER_COLORS: Record<Cat, string> = {
-  flight: "#3b82f6", // bleu
-  cloud: "#10b981", // vert
-  electricity: "#f59e0b", // jaune
-  total: "#8b5cf6", // violet
+  flight: "#3b82f6", 
+  cloud: "#10b981",
+  electricity: "#f59e0b", 
+  total: "#8b5cf6", 
 };
 
-// Couleurs « Moyenne France » codées en dur (teintes plus claires)
 const AVG_COLORS: Record<Cat, string> = {
-  flight: "#93c5fd", // bleu clair
-  cloud: "#6ee7b7", // vert clair
-  electricity: "#fde68a", // jaune clair
-  total: "#d8b4fe", // violet clair
+  flight: "#93c5fd", 
+  cloud: "#6ee7b7", 
+  electricity: "#fde68a",
+  total: "#d8b4fe",
 };
 
-// Catégories à afficher (uniquement celles cochées)
 const visibleCats = computed(() =>
   allCategories.filter((c) => showCategories.value[c])
 );
 
-// Labels X dynamiques
 const labels = computed(() => visibleCats.value.map((c) => categoryLabels[c]));
 
-// Données utilisateur (par catégorie)
 const dataUser = computed(() =>
   visibleCats.value.map((c) => userTotals.value[c])
 );
-// Données moyenne France (par catégorie)
 const dataAvg = computed(() =>
   visibleCats.value.map((c) => franceTotals.value[c])
 );
 
-// Couleurs des barres pour chaque série
 const userBarColors = computed(() =>
   visibleCats.value.map((c) => USER_COLORS[c])
 );
@@ -198,7 +184,6 @@ const avgBarColors = computed(() =>
   visibleCats.value.map((c) => AVG_COLORS[c])
 );
 
-// Construction des données Chart.js
 const chartData = computed(() => ({
   labels: labels.value,
   datasets: [
@@ -215,7 +200,6 @@ const chartData = computed(() => ({
   ],
 }));
 
-// Options Chart.js
 const chartOptions = {
   responsive: true,
   plugins: {
@@ -244,5 +228,4 @@ const chartOptions = {
 </script>
 
 <style scoped>
-/* Aucun style additionnel : tout est géré via classes Tailwind */
 </style>

@@ -24,7 +24,6 @@ const props = defineProps<{
   values: number[]
 }>()
 
-// chartData réactif : recalculé à chaque changement de props.labels ou props.values
 const chartData = computed(() => ({
   labels: props.labels,
   datasets: [
@@ -36,7 +35,6 @@ const chartData = computed(() => ({
   ],
 }))
 
-// options statiques (peuvent aussi être computed si besoin)
 const chartOptions = {
   responsive: true,
   plugins: {

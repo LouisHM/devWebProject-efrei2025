@@ -17,10 +17,10 @@ theme: {
       textlight: '#1e1e1e',
       textdark: '#f5f5f5',
       
-        flight: "#3b82f6",      // bleu
-        cloud: "#10b981",       // vert
-        electricity: "#f59e0b",      // jaune
-        total: "#8b5cf6",       // violet
+        flight: "#3b82f6",      
+        cloud: "#10b981",       
+        electricity: "#f59e0b",      
+        total: "#8b5cf6",       
 
         "flight-light": "#93c5fd",
         "cloud-light": "#6ee7b7",
@@ -29,7 +29,7 @@ theme: {
 
     },
       boxShadow: {
-        secondary: '5px 5px 25px 5px rgba(0,0,0, 0.32)', // couleur #5fc163
+        secondary: '5px 5px 25px 5px rgba(0,0,0, 0.32)', 
       },
   },
 },

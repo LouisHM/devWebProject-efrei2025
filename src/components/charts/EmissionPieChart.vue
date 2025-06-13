@@ -14,7 +14,6 @@ import {
   ArcElement,
 } from "chart.js";
 
-// Enregistrement des plugins indispensables pour que <Pie> fonctionne
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 const props = defineProps<{
@@ -22,13 +21,6 @@ const props = defineProps<{
   values: number[];
 }>();
 
-/*
-  Couleurs codées en dur (tailwind hex) :
-  - Vols      : #3b82f6 (bleu)
-  - Cloud     : #10b981 (vert)
-  - Électricité: #f59e0b (jaune)
-  (Pour un 4ᵉ segment "Total" on pourrait ajouter #8b5cf6)
-*/
 const PIE_COLORS = ["#3b82f6", "#10b981", "#f59e0b"];
 
 const chartData = computed(() => ({

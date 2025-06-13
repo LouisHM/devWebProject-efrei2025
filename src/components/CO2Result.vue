@@ -79,11 +79,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-/**
- * Props :
- * - result: réponse brute de l’API (cloud, flight ou electricity).
- * - activity: 'cloud' | 'flight' | 'electricity' => pour choisir l’affichage adéquat.
- */
+
 const props = defineProps<{
   result: any
   activity: 'cloud' | 'flight' | 'electricity'
@@ -91,12 +87,11 @@ const props = defineProps<{
 </script>
 
 <style scoped>
-/* Juste pour aérer un peu les titres */
 h4 {
   margin-bottom: 0.25rem;
-  color: #374151; /* gris foncé */
+  color: #374151; 
 }
 .dark h4 {
-  color: #d1d5db; /* gris clair en dark */
+  color: #d1d5db; 
 }
 </style>

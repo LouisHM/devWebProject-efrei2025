@@ -1,4 +1,3 @@
-// ✈️ Estimateur de vol via endpoint preview
 export async function calculateFlight(from: string, to: string) {
   const res = await fetch('https://preview.api.climatiq.io/travel/v1-preview1/distance', {
     method: 'POST',

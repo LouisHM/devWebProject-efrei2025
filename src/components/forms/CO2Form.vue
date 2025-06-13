@@ -81,36 +81,29 @@ import { calculateElectricity } from '@/lib/electricity'
 import type { ElectricityParams } from '@/lib/electricity'
 import { supabase } from '@/lib/supabase'
 
-// --- Choix d'activité ---
 const activity = ref<'cloud' | 'flight' | 'electricity'>('cloud')
 
-// Cloud params
 const duration = ref(24)
 const instance = ref('t2.nano')
 const region = ref('us_west_2')
 const storage = ref(10)
 const storageType = ref<'ssd' | 'hdd'>('ssd')
 
-// Flight params
 const origin = ref('Paris')
 const destination = ref('Berlin')
 
-// Electricity params : on commence par une valeur par défaut minimale
 const electricityParams = ref<ElectricityParams>({
-  region: '',        // laissé vide tant que l'utilisateur n'a pas choisi
-  amount: 0,         // quant. en kWh
-  // year?, recs?, source_set?, allow_iea_provisional? = non définis au départ
+  region: '',        
+  amount: 0,         
 })
 
 const result = ref<any>(null)
 const recentResults = ref<any[]>([])
 
-// Efface le résultat quand on change d’activité
 watch(activity, () => {
   result.value = null
 })
 
-// Récupère l’historique
 const fetchRecent = async () => {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return
@@ -124,17 +117,13 @@ const fetchRecent = async () => {
 }
 onMounted(fetchRecent)
 
-// --- extractCO2 corrigé pour tenir compte de l’endpoint « electricity » ---
 const extractCO2 = (d: any): number => {
-  // Cloud et Flight
   if (d?.total_co2e) return d.total_co2e
   if (d?.co2e) return d.co2e
 
-  // Electricity (location-based)
   if (d?.location?.consumption?.co2e) {
     return d.location.consumption.co2e
   }
-  // Electricity (market-based)
   if (d?.market?.consumption?.co2e) {
     return d.market.consumption.co2e
   }
@@ -156,11 +145,9 @@ const calculate = async () => {
     } else if (activity.value === 'flight') {
       result.value = await calculateFlight(origin.value, destination.value)
     } else {
-      // On envoie l’objet complet electricityParams.value
       result.value = await calculateElectricity(electricityParams.value)
     }
 
-    // --- Debug et insertion Supabase ---
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       console.warn("Impossible d'enregistrer : pas d’utilisateur connecté.")
@@ -183,7 +170,6 @@ const calculate = async () => {
         console.log("✅ Insertion réussie – retour Supabase :", insertData)
       }
     }
-    // --------------------------------------
 
     await fetchRecent()
   } catch (e) {

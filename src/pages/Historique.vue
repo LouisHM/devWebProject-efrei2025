@@ -50,15 +50,12 @@ import { ref, onMounted, computed } from 'vue'
 import { supabase } from '@/lib/supabase'
 import CO2BarChart from '@/components/charts/CO2BarChart.vue'
 
-// état
 const results = ref<any[]>([])
 const loading = ref(true)
 const displayCount = ref(0)
 
-// résultats tronqués pour le graphique
 const chartResults = computed(() => results.value.slice(0, displayCount.value))
 
-// Récupération initiale (jusqu’à 50)
 const fetchUserResults = async () => {
   const {
     data: { user },
@@ -77,7 +74,6 @@ const fetchUserResults = async () => {
 
   if (!error && data) {
     results.value = data
-    // par défaut on affiche tout dans le graphique
     displayCount.value = data.length
   }
   loading.value = false

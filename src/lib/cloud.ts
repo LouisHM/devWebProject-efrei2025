@@ -1,6 +1,4 @@
-// src/lib/cloud.ts
 
-// 🌐 Liste des régions AWS
 export const AVAILABLE_REGIONS = [
   { label: 'US West (Oregon)', value: 'us_west_2' },
   { label: 'US East (N. Virginia)', value: 'us_east_1' },
@@ -8,7 +6,6 @@ export const AVAILABLE_REGIONS = [
   { label: 'Asia Pacific (Singapore)', value: 'ap_southeast_1' },
 ]
 
-// 🖥️ Types d’instances EC2 courants
 export const AVAILABLE_INSTANCES = [
   { label: 't2.nano',    value: 't2.nano'    },
   { label: 't2.micro',   value: 't2.micro'   },
@@ -17,13 +14,11 @@ export const AVAILABLE_INSTANCES = [
   { label: 'm5.large',   value: 'm5.large'   },
 ]
 
-// 💾 Types de stockage
 export const AVAILABLE_STORAGE_TYPES = [
   { label: 'SSD', value: 'ssd' },
   { label: 'HDD', value: 'hdd' },
 ]
 
-// 🔎 Estimateur pour une instance EC2 + stockage
 export async function calculateCloud(
   instance: string,
   region: string,
@@ -31,7 +26,6 @@ export async function calculateCloud(
   storage: number,
   storageType: 'ssd' | 'hdd' = 'ssd'
 ) {
-  // Instance (CPU + RAM + embodied)
   const instRes = await fetch('https://api.climatiq.io/compute/v1/aws/instance', {
     method: 'POST',
     headers: {
@@ -50,7 +44,6 @@ export async function calculateCloud(
   }
   const instanceData = await instRes.json()
 
-  // Stockage
   const storRes = await fetch('https://api.climatiq.io/compute/v1/aws/storage', {
     method: 'POST',
     headers: {
@@ -71,7 +64,6 @@ export async function calculateCloud(
   }
   const storageData = await storRes.json()
 
-  // Retour fusionné
   return {
     ...instanceData,
     storage_estimate: storageData,

@@ -158,24 +158,20 @@ const isOpen = ref(false);
 const isDark = ref(false);
 const user = ref<any>(null);
 
-// Ferme le menu mobile
 function closeMenu() {
   isOpen.value = false;
 }
 
-// Fermer le menu puis déconnecter
 function logoutAndClose() {
   supabase.auth.signOut();
   isOpen.value = false;
 }
 
-// Déconnexion (desktop)
 async function logout() {
   await supabase.auth.signOut();
   router.push("/");
 }
 
-// Gère le dark mode
 function applyTheme(dark: boolean) {
   document.documentElement.classList.toggle("dark", dark);
   localStorage.setItem("theme", dark ? "dark" : "light");
@@ -185,17 +181,14 @@ function toggleDark() {
   applyTheme(isDark.value);
 }
 
-// Vérifie si la route en cours commence par `path`
 const isActive = (path: string) => route.path.startsWith(path);
 
 onMounted(() => {
-  // Initialization du thème
   const saved = localStorage.getItem("theme");
   const system = window.matchMedia("(prefers-color-scheme: dark)").matches;
   isDark.value = saved === "dark" || (!saved && system);
   applyTheme(isDark.value);
 
-  // Récupère la session utilisateur
   supabase.auth.getSession().then(({ data }) => {
     user.value = data.session?.user ?? null;
   });
@@ -209,7 +202,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Animation pour le menu mobile : fade + slide */
 .slide-fade-enter-active {
   transition: all 0.2s ease-out;
 }

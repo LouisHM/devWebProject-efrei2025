@@ -27,23 +27,20 @@ ChartJS.register(
 )
 
 const props = defineProps<{
-  // liste d'objets contenant created_at: string/date, co2e: number
   data: { created_at: string; co2e: number }[]
 }>()
 
-// Regrouper par date (YYYY-MM-DD) et sommer
 const aggregated = computed(() => {
   const map = new Map<string, number>()
   props.data.forEach(({ created_at, co2e }) => {
     const day = new Date(created_at).toISOString().slice(0, 10)
     map.set(day, (map.get(day) || 0) + co2e)
   })
-  // tri par date croissante
   return Array.from(map.entries())
     .sort(([a], [b]) => a.localeCompare(b))
 })
 
-// données pour Chart.js
+
 const chartData = computed(() => ({
   labels: aggregated.value.map(([day]) => day),
   datasets: [
