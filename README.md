@@ -23,43 +23,11 @@ npm install
 # ou
 yarn install
 
-Créez un fichier .env à la racine du projet, contenant :
-
-VITE_SUPABASE_URL=https://xyzcompany.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key
-VITE_CLIMATIQ_API_KEY=your-climatiq-api-key
-
-Lancez le serveur de développement
-
-    npm run dev
-    # ou
-    yarn dev
-
-    Ouvrez votre navigateur à l’adresse : http://localhost:5173
-
 📦 Scripts disponibles
 Commande	Description
 npm run dev	Démarre Vite en mode développement
 npm run build	Compile TypeScript et produit le build (dist/)
 npm run preview	Prévisualise le build en local
-🌐 Variables d’environnement
-Clé	Description
-VITE_SUPABASE_URL	URL de votre instance Supabase
-VITE_SUPABASE_ANON_KEY	Clé publique Supabase (anon key)
-VITE_CLIMATIQ_API_KEY	Clé API Climatiq
-🛠️ Stack & dépendances
-
-    Framework : Vue 3 + Composition API
-
-    Routing : vue-router
-
-    State & BDD : Supabase JS
-
-    UI : Tailwind CSS
-
-    Graphiques : Chart.js + vue-chartjs
-
-    Build & Dev : Vite, TypeScript
 
 📁 Structure du projet
 
@@ -100,16 +68,5 @@ src/
 
     Note
     L’ancien endpoint flight de Climatiq est marqué comme déprécié. Nous utilisons à la place l’endpoint Travel pour le calcul des distances et émissions de vol.
-
-🤝 Contribution
-
-Les Pull Requests sont les bienvenues !
-Merci de respecter :
-
-    La structure du projet et les conventions Tailwind
-
-    La Composition API Vue 3
-
-    La configuration .env pour garder les clés secrètes
 
 © 2025 Projet d’étude EFREI – Climatiq CO₂ Tracker
