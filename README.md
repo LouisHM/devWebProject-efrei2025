@@ -58,7 +58,7 @@ src/
 
     Cloud : calcul d’émissions CPU, RAM et stockage AWS via Climatiq
 
-    Vols : distance et émissions directes/indirectes via l’endpoint Travel (flight déprécié)
+    Vols : distance et émissions directes/indirectes via l’endpoint Travel (⚠️flight déprécié⚠️)
 
     Électricité : scope 2 & 3.3 via l’endpoint Energy V1 de Climatiq
 
