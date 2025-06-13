@@ -9,7 +9,7 @@ L'application est déployée et accessible à l'adresse : **https://efrei-climat
 ## ✨ Fonctionnalités principales
 
 - **☁️ Cloud Computing** : Calcul des émissions CO₂ pour vos ressources AWS (CPU, RAM, stockage)
-- **✈️ Transport aérien** : Estimation des émissions directes et indirectes de vos vols ( ⚠️ endpoint Travel, flight est deprecated)
+- **✈️ Transport aérien** : Estimation des émissions directes et indirectes de vos vols
 - **⚡ Consommation électrique** : Analyse des émissions scope 2 & 3.3 liées à votre électricité
 - **📊 Historique complet** : Sauvegarde et consultation de vos 50 derniers calculs
 - **📈 Statistiques avancées** : Graphiques interactifs et analyses comparatives
