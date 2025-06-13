@@ -1,15 +1,16 @@
-<!-- src/components/ElectricityForm.vue -->
 <template>
   <div class="space-y-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <!-- Région -->
+      <!-- Région (obligatoire) -->
       <div>
-        <label class="block font-semibold mb-1">Région</label>
+        <label class="block font-semibold mb-1">Région *</label>
         <select
           :value="modelValue.region"
           @change="updateField('region', $event.target.value)"
+          required
           class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
         >
+          <!-- option par défaut interdite à la validation -->
           <option disabled value="">Sélectionnez une région</option>
           <option
             v-for="opt in AVAILABLE_REGIONS"
@@ -35,9 +36,9 @@
         />
       </div>
 
-      <!-- Quantité (kWh) -->
+      <!-- Quantité (kWh) obligatoire -->
       <div>
-        <label class="block font-semibold mb-1">Quantité (kWh)</label>
+        <label class="block font-semibold mb-1">Quantité (kWh) *</label>
         <input
           :value="modelValue.amount"
           @input="updateField('amount', Number($event.target.value))"
@@ -49,7 +50,7 @@
         />
       </div>
 
-      <!-- RECs (facultatif, kWh) -->
+      <!-- RECs (facultatif) -->
       <div>
         <label class="block font-semibold mb-1">RECs (optionnel, kWh)</label>
         <input
@@ -61,26 +62,21 @@
           class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
         />
       </div>
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import {
   AVAILABLE_REGIONS,
   AVAILABLE_SOURCE_SETS
 } from '@/lib/electricity'
 import type { ElectricityParams } from '@/lib/electricity'
 
-// On attend que parent fasse v-model="electricityParams"
-// Donc modelValue est un objet ElectricityParams
 const props = defineProps<{
   modelValue: ElectricityParams
 }>()
 
-// Pour mettre à jour un champ isolé, on reconstruit un nouvel objet
 const emit = defineEmits<{
   (e: 'update:modelValue', payload: ElectricityParams): void
 }>()
