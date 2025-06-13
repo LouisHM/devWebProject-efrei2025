@@ -5,13 +5,13 @@ Une application Vue 3 moderne pour suivre et visualiser vos émissions de CO₂ 
 ## ✨ Fonctionnalités principales
 
 - **☁️ Cloud Computing** : Calcul des émissions CO₂ pour vos ressources AWS (CPU, RAM, stockage)
-- **✈️ Transport aérien** : Estimation des émissions directes et indirectes de vos vols (⚠️endpoint Travel, flight est deprecated⚠️)
+- **✈️ Transport aérien** : Estimation des émissions directes et indirectes de vos vols ( ⚠️ endpoint Travel, flight est deprecated)
 - **⚡ Consommation électrique** : Analyse des émissions scope 2 & 3.3 liées à votre électricité
 - **📊 Historique complet** : Sauvegarde et consultation de vos 50 derniers calculs
 - **📈 Statistiques avancées** : Graphiques interactifs et analyses comparatives
-(⚠️certains comme la tendance de co2 sur le temps, nécessite de se connecter plusieurs jours différents⚠️)
+( ⚠️ certains comme la tendance de co2 sur le temps, nécessite de se connecter plusieurs jours différents)
 - **🔐 Authentification sécurisée** : Gestion des utilisateurs via Supabase
-(⚠️Si jamais la base ne marche pas, n'hesitez pas à nous contacter il faut que nous nous connections sur Supabase⚠️)
+( ⚠️ Si jamais la base ne marche pas, n'hesitez pas à nous contacter il faut que nous nous connections sur Supabase)
 
 ## 🚀 Démarrage rapide
 
