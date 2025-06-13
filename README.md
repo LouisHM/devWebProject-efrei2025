@@ -2,6 +2,10 @@
 
 Une application Vue 3 moderne pour suivre et visualiser vos émissions de CO₂ liées au cloud computing (AWS), aux transports aériens et à votre consommation d'électricité. Prenez conscience de votre empreinte carbone numérique et énergétique grâce à des données précises et des visualisations interactives.
 
+### 🌐 Démonstration en ligne
+
+L'application est déployée et accessible à l'adresse : **https://efrei-climatiq.pages.dev/**
+
 ## ✨ Fonctionnalités principales
 
 - **☁️ Cloud Computing** : Calcul des émissions CO₂ pour vos ressources AWS (CPU, RAM, stockage)
@@ -52,10 +56,6 @@ Une application Vue 3 moderne pour suivre et visualiser vos émissions de CO₂ 
    ```bash
    npm run dev
    ```
-
-### 🌐 Démonstration en ligne
-
-L'application est déployée et accessible à l'adresse : **https://efrei-climatiq.pages.dev/**
 
 ## 📦 Scripts disponibles
 
