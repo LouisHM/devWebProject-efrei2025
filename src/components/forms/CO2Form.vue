@@ -70,11 +70,6 @@ import ElectricityForm from './ElectricityForm.vue'
 import CO2Result from '../CO2Result.vue'
 import RecentResults from '../RecentResults.vue'
 
-import {
-  AVAILABLE_REGIONS,
-  AVAILABLE_INSTANCES,
-  AVAILABLE_STORAGE_TYPES,
-} from '@/lib/cloud'
 import { calculateCloud } from '@/lib/cloud'
 import { calculateFlight } from '@/lib/flight'
 import { calculateElectricity } from '@/lib/electricity'

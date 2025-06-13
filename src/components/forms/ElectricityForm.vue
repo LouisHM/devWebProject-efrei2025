@@ -6,7 +6,7 @@
         <label class="block font-semibold mb-1">Région *</label>
         <select
           :value="modelValue.region"
-          @change="updateField('region', $event.target.value)"
+          @change="updateField('region', ($event.target as HTMLSelectElement)?.value)"
           required
           class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
         >
@@ -27,7 +27,7 @@
         <label class="block font-semibold mb-1">Année (optionnel)</label>
         <input
           :value="modelValue.year ?? ''"
-          @input="updateField('year', $event.target.valueAsNumber || undefined)"
+          @input="updateField('year', ($event.target as HTMLInputElement)?.valueAsNumber || undefined)"
           type="number"
           min="2000"
           max="2100"
@@ -36,12 +36,12 @@
         />
       </div>
 
-      <!-- Quantité (kWh) obligatoire -->
+      
       <div>
         <label class="block font-semibold mb-1">Quantité (kWh) *</label>
         <input
           :value="modelValue.amount"
-          @input="updateField('amount', Number($event.target.value))"
+          @input="updateField('amount', Number(($event.target as HTMLInputElement)?.value))"
           type="number"
           min="0"
           required
@@ -50,12 +50,12 @@
         />
       </div>
 
-      <!-- RECs (facultatif) -->
+      
       <div>
         <label class="block font-semibold mb-1">RECs (optionnel, kWh)</label>
         <input
           :value="modelValue.recs ?? ''"
-          @input="updateField('recs', $event.target.valueAsNumber || undefined)"
+          @input="updateField('recs', ($event.target as HTMLInputElement)?.valueAsNumber || undefined)"
           type="number"
           min="0"
           placeholder="Ex : 100"
@@ -68,8 +68,7 @@
 
 <script setup lang="ts">
 import {
-  AVAILABLE_REGIONS,
-  AVAILABLE_SOURCE_SETS
+  AVAILABLE_REGIONS
 } from '@/lib/electricity'
 import type { ElectricityParams } from '@/lib/electricity'
 

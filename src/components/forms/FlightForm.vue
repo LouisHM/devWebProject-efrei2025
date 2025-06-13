@@ -6,7 +6,7 @@
       <label class="block font-semibold mb-1">Ville de départ</label>
       <input
         :value="origin"
-        @input="$emit('update:origin', $event.target.value)"
+        @input="$emit('update:origin', ($event.target as HTMLInputElement)?.value)"
         type="text"
         required
         placeholder="Ex : Paris"
@@ -19,7 +19,7 @@
       <label class="block font-semibold mb-1">Ville d'arrivée</label>
       <input
         :value="destination"
-        @input="$emit('update:destination', $event.target.value)"
+        @input="$emit('update:destination', ($event.target as HTMLInputElement)?.value)"
         type="text"
         required
         placeholder="Ex : Berlin"

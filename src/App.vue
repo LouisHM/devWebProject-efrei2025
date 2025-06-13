@@ -9,9 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { supabase } from '@/lib/supabase'
 import NavBar from '@/components/NavBar.vue'
 
 </script>

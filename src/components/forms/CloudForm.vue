@@ -5,7 +5,7 @@
       <label class="block font-semibold mb-1">Durée (h)</label>
       <input
         :value="duration"
-        @input="$emit('update:duration', Number($event.target.value))"
+        @input="$emit('update:duration', Number(($event.target as HTMLInputElement)?.value))"
         type="number"
         min="1"
         required
@@ -18,7 +18,7 @@
       <label class="block font-semibold mb-1">Stockage (Go)</label>
       <input
         :value="storage"
-        @input="$emit('update:storage', Number($event.target.value))"
+        @input="$emit('update:storage', Number(($event.target as HTMLInputElement)?.value))"
         type="number"
         min="0"
         required
@@ -31,7 +31,7 @@
       <label class="block font-semibold mb-1">Type d'instance</label>
       <select
         :value="instance"
-        @change="$emit('update:instance', $event.target.value)"
+        @change="$emit('update:instance', ($event.target as HTMLSelectElement)?.value)"
         class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <option
@@ -49,7 +49,7 @@
       <label class="block font-semibold mb-1">Région</label>
       <select
         :value="region"
-        @change="$emit('update:region', $event.target.value)"
+        @change="$emit('update:region', ($event.target as HTMLSelectElement)?.value)"
         class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <option
@@ -67,7 +67,7 @@
       <label class="block font-semibold mb-1">Type de stockage</label>
       <select
         :value="storageType"
-        @change="$emit('update:storageType', $event.target.value)"
+        @change="$emit('update:storageType', ($event.target as HTMLSelectElement)?.value)"
         class="w-full p-2 border rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-dark text-textlight dark:text-textdark"
       >
         <option
