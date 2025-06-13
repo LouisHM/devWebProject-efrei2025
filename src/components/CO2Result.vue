@@ -80,7 +80,7 @@
 import { defineProps } from 'vue'
 
 
-const props = defineProps<{
+defineProps<{
   result: any
   activity: 'cloud' | 'flight' | 'electricity'
 }>()
